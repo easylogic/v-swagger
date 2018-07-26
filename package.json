@@ -1,18 +1,18 @@
 {
-  "name": "vue-swagger",
+  "name": "v-swagger",
   "version": "0.0.1",
   "description": "API document component like swagger style",
-  "main": "dist/vue-swagger.umd.js",
-  "module": "dist/vue-swagger.esm.js",
-  "unpkg": "dist/vue-swagger.min.js",
+  "main": "dist/v-swagger.umd.js",
+  "module": "dist/v-swagger.esm.js",
+  "unpkg": "dist/v-swagger.min.js",
   "browser": {
-    "./sfc": "src/vue-swagger.vue"
+    "./sfc": "src/v-swagger.vue"
   },
   "scripts": {
     "build": "npm run build:umd & npm run build:es & npm run build:unpkg",
-    "build:umd": "rollup --config build/rollup.config.js --format umd -o dist/vue-swagger.umd.js",
-    "build:es": "rollup --config build/rollup.config.js --format es -o dist/vue-swagger.esm.js",
-    "build:unpkg": "rollup --config build/rollup.config.js --format iife -o dist/vue-swagger.min.js"
+    "build:umd": "rollup --config build/rollup.config.js --format umd -o dist/v-swagger.umd.js",
+    "build:es": "rollup --config build/rollup.config.js --format es -o dist/v-swagger.esm.js",
+    "build:unpkg": "rollup --config build/rollup.config.js --format iife -o dist/v-swagger.min.js"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
@@ -39,7 +39,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/easylogic/vue-swagger.git"
+    "url": "git+https://github.com/easylogic/v-swagger.git"
   },
   "keywords": [
     "api",
@@ -50,9 +50,9 @@
   "author": "easylogic",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/easylogic/vue-swagger/issues"
+    "url": "https://github.com/easylogic/v-swagger/issues"
   },
-  "homepage": "https://github.com/easylogic/vue-swagger#readme",
+  "homepage": "https://github.com/easylogic/v-swagger#readme",
   "dependencies": {
     "axios": "^0.18.0"
   }

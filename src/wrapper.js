@@ -1,4 +1,4 @@
-import component from './vue-swagger.vue'
+import component from './v-swagger.vue'
 
 export function install (Vue) {
     if (install.installed) return; 
