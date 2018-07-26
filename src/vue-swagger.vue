@@ -29,14 +29,15 @@
 import request from './request.vue'
 
 export default {
-    props: ['host', 'opened', 'title', 'description', 'target'],
+    props: ['host', 'opened', 'title', 'description', 'requset', 'target'],
     data () {
 
         var apiObj = {
             host: this.host,
             title: this.title,
             description: this.description,
-            opened: this.opened 
+            opened: this.opened,
+            request: this.request || [] 
         } 
         return {
             apiObj,

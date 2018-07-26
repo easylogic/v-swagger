@@ -4290,14 +4290,15 @@
 	            return _c('request', { key: index, attrs: { "method": item.method, "url": item.url, "description": item.description, "headers": item.headers, "path": item.path, "params": item.params, "body": item.body } });
 	        })], 2)]);
 	    }, staticRenderFns: [], _scopeId: 'data-v-3ab0010c',
-	    props: ['host', 'opened', 'title', 'description', 'target'],
+	    props: ['host', 'opened', 'title', 'description', 'requset', 'target'],
 	    data: function data() {
 
 	        var apiObj = {
 	            host: this.host,
 	            title: this.title,
 	            description: this.description,
-	            opened: this.opened
+	            opened: this.opened,
+	            request: this.request || []
 	        };
 	        return {
 	            apiObj: apiObj,
