@@ -10,7 +10,8 @@ const plugins = [
         compileTemplate: true
     }),
     babel({
-        exclude: 'node_modules/**'
+        exclude: 'node_modules/**',
+        runtimeHelpers: true 
     }),        
     nodeResolve({ browser: true, jsnext: true }),
     buble({
