@@ -31,7 +31,6 @@ export default {
           required: true,
           contentType: "application/json",
           "data": {
-  
             "petId": 0,
             "quantity": 0,
             "shipDate": "2018-07-14T14:10:33.646Z",
