@@ -5,7 +5,7 @@ export function install (Vue) {
 
     install.installed = true;
 
-    Vue.component('VueSwagger', component)
+    Vue.component('v-swagger', component)
 }
 
 const plugin = {

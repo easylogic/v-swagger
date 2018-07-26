@@ -4562,7 +4562,7 @@ function install(Vue) {
 
   install.installed = true;
 
-  Vue.component('VueSwagger', component);
+  Vue.component('v-swagger', component);
 }
 
 var plugin = {
