@@ -9,7 +9,6 @@
     "./sfc": "src/vue-swagger.vue"
   },
   "scripts": {
-    "release": "NODE_ENV=production npm run build",
     "build": "npm run build:umd & npm run build:es & npm run build:unpkg",
     "build:umd": "rollup --config build/rollup.config.js --format umd -o dist/vue-swagger.umd.js",
     "build:es": "rollup --config build/rollup.config.js --format es -o dist/vue-swagger.esm.js",

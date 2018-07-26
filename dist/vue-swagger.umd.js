@@ -4017,7 +4017,7 @@
                 if (typeof document !== 'undefined') {
                     var head = document.head || document.getElementsByTagName('head')[0],
                         style = document.createElement('style'),
-                        css = "table[data-v-602a81a0] { display: table; border: 0px; margin: 0px; border-collapse: collapse; width: 100%; padding: 0 10px; } table tr[data-v-602a81a0], table td[data-v-602a81a0], table th[data-v-602a81a0] { border: 0px; background-color: transparent; padding: 0.6em 0em; } table th[data-v-602a81a0] { font-size: 12px; font-weight: 700; padding: 12px 0; text-align: left; border-bottom: 1px solid rgba(59, 65, 81, 0.2); font-family: sans-serif; color: #3b4151; } .source[data-v-602a81a0] { color: gray; font-size: 11px; } .section-header[data-v-602a81a0] { padding: 8px 20px; min-height: 50px; background: rgba(255, 255, 255, 0.8); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); display: flex; align-items: center; box-sizing: border-box; } .section-header .tab-header[data-v-602a81a0] { display: flex; flex: 1; } .section-header .tab-header h1[data-v-602a81a0] { font-size: 14px; flex: 1; margin: 0; font-family: sans-serif; color: #3b4151; } .table-container[data-v-602a81a0] { padding: 20px; } .btn[data-v-602a81a0] { font-size: 14px; font-weight: 700; padding: 5px 23px; transition: all .3s; border: 2px solid gray; border-radius: 4px; background: transparent; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); font-family: sans-serif; color: #3b4151; cursor: pointer; } .btn.cancel[data-v-602a81a0] { border-color: #ff6060; background-color: transparent; font-family: sans-serif; color: #ff6060; } .btn.execute[data-v-602a81a0] { background-color: #4990e2; color: #fff; border-color: #4990e2; } .execute-wrapper .btn[data-v-602a81a0] { width: 100%; padding: 8px 40px; } .parameter-name[data-v-602a81a0] { font-size: 16px; font-weight: 700; font-family: sans-serif; color: #3b4151; vertical-align: middle; } .parameter-name .required[data-v-602a81a0] { font-size: 10px; padding: 5px; vertical-align: middle; color: rgba(255, 0, 0, 0.6); } .parameter-type[data-v-602a81a0] { font-size: 12px; padding: 5px 0; font-family: monospace; font-weight: 600; color: #3b4151; } .data[data-v-602a81a0] { font-size: 12px; } .vtop[data-v-602a81a0] { vertical-align: top; } .value-input[data-v-602a81a0] { margin-top: 2px; } .value-input input[type=text][data-v-602a81a0] { padding: 8px 10px; border-radius: 4px; border: 1px solid #ececec; width: 240px; } .value-input textarea[data-v-602a81a0] { padding: 8px 10px; border-radius: 4px; border: 1px solid #ececec; width: 90%; height: 110px; max-width: 100%; } .value-input .title[data-v-602a81a0] { font-size: 12px; font-weight: 700; margin-bottom: 5px; } .value-input select[data-v-602a81a0] { font-size: 14px; font-weight: 700; padding: 5px 40px 5px 10px; height: 34px; width: 180px; box-sizing: border-box; border: 2px solid #41444e; border-radius: 4px; background: #f7f7f7 url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMCAyMCI+ICAgIDxwYXRoIGQ9Ik0xMy40MTggNy44NTljLjI3MS0uMjY4LjcwOS0uMjY4Ljk3OCAwIC4yNy4yNjguMjcyLjcwMSAwIC45NjlsLTMuOTA4IDMuODNjLS4yNy4yNjgtLjcwNy4yNjgtLjk3OSAwbC0zLjkwOC0zLjgzYy0uMjctLjI2Ny0uMjctLjcwMSAwLS45NjkuMjcxLS4yNjguNzA5LS4yNjguOTc4IDBMMTAgMTFsMy40MTgtMy4xNDF6Ii8+PC9zdmc+\") right 10px center no-repeat; background-size: 20px; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25); font-family: Titillium Web,sans-serif; color: #3b4151; appearance: none; -webkit-appearance: none; -moz-appearance: none; } .params[data-v-602a81a0] { margin-top: 5px; } .params .param-item span[data-v-602a81a0] { font-size: 12px; margin-right: 10px; font-weight: 700; } .copy-result[data-v-602a81a0] { display: inline-block; margin-right: 15px; } .copy-result.success[data-v-602a81a0] { color: #4990e2; } .response[data-v-602a81a0] { font-size: 12px; height: 200px; overflow: auto; margin-bottom: 10px; } .response pre[data-v-602a81a0] { padding: 10px; background-color: transparent; } ";style.type = 'text/css';if (style.styleSheet) {
+                        css = "table[data-v-602a81a0] { display: table; border: 0px; margin: 0px; border-collapse: collapse; width: 100%; padding: 0 10px; } table tr[data-v-602a81a0], table td[data-v-602a81a0], table th[data-v-602a81a0] { border: 0px; background-color: transparent; padding: 0.6em 0em; } table th[data-v-602a81a0] { font-size: 12px; font-weight: 700; padding: 12px 0; text-align: left; border-bottom: 1px solid rgba(59, 65, 81, 0.2); font-family: sans-serif; color: #3b4151; } table .no-items[data-v-602a81a0] { font-size: 12px; } .source[data-v-602a81a0] { color: gray; font-size: 11px; } .section-header[data-v-602a81a0] { padding: 8px 20px; min-height: 50px; background: rgba(255, 255, 255, 0.8); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); display: flex; align-items: center; box-sizing: border-box; } .section-header .tab-header[data-v-602a81a0] { display: flex; flex: 1; } .section-header .tab-header h1[data-v-602a81a0] { font-size: 14px; flex: 1; margin: 0; font-family: sans-serif; color: #3b4151; } .table-container[data-v-602a81a0] { padding: 20px; } .btn[data-v-602a81a0] { font-size: 14px; font-weight: 700; padding: 5px 23px; transition: all .3s; border: 2px solid gray; border-radius: 4px; background: transparent; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); font-family: sans-serif; color: #3b4151; cursor: pointer; } .btn.cancel[data-v-602a81a0] { border-color: #ff6060; background-color: transparent; font-family: sans-serif; color: #ff6060; } .btn.execute[data-v-602a81a0] { background-color: #4990e2; color: #fff; border-color: #4990e2; } .execute-wrapper .btn[data-v-602a81a0] { width: 100%; padding: 8px 40px; } .parameter-name[data-v-602a81a0] { font-size: 16px; font-weight: 700; font-family: sans-serif; color: #3b4151; vertical-align: middle; } .parameter-name .required[data-v-602a81a0] { font-size: 10px; padding: 5px; vertical-align: middle; color: rgba(255, 0, 0, 0.6); } .parameter-type[data-v-602a81a0] { font-size: 12px; padding: 5px 0; font-family: monospace; font-weight: 600; color: #3b4151; } .data[data-v-602a81a0] { font-size: 12px; } .vtop[data-v-602a81a0] { vertical-align: top; } .value-input[data-v-602a81a0] { margin-top: 2px; } .value-input input[type=text][data-v-602a81a0] { padding: 8px 10px; border-radius: 4px; border: 1px solid #ececec; width: 240px; } .value-input textarea[data-v-602a81a0] { padding: 8px 10px; border-radius: 4px; border: 1px solid #ececec; width: 90%; height: 110px; max-width: 100%; } .value-input .title[data-v-602a81a0] { font-size: 12px; font-weight: 700; margin-bottom: 5px; } .value-input select[data-v-602a81a0] { font-size: 14px; font-weight: 700; padding: 5px 40px 5px 10px; height: 34px; width: 180px; box-sizing: border-box; border: 2px solid #41444e; border-radius: 4px; background: #f7f7f7 url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMCAyMCI+ICAgIDxwYXRoIGQ9Ik0xMy40MTggNy44NTljLjI3MS0uMjY4LjcwOS0uMjY4Ljk3OCAwIC4yNy4yNjguMjcyLjcwMSAwIC45NjlsLTMuOTA4IDMuODNjLS4yNy4yNjgtLjcwNy4yNjgtLjk3OSAwbC0zLjkwOC0zLjgzYy0uMjctLjI2Ny0uMjctLjcwMSAwLS45NjkuMjcxLS4yNjguNzA5LS4yNjguOTc4IDBMMTAgMTFsMy40MTgtMy4xNDF6Ii8+PC9zdmc+\") right 10px center no-repeat; background-size: 20px; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25); font-family: Titillium Web,sans-serif; color: #3b4151; appearance: none; -webkit-appearance: none; -moz-appearance: none; } .params[data-v-602a81a0] { margin-top: 5px; } .params .param-item span[data-v-602a81a0] { font-size: 12px; margin-right: 10px; font-weight: 700; } .copy-result[data-v-602a81a0] { display: inline-block; margin-right: 15px; } .copy-result.success[data-v-602a81a0] { color: #4990e2; } .response[data-v-602a81a0] { font-size: 12px; height: 200px; overflow: auto; margin-bottom: 10px; } .response pre[data-v-602a81a0] { padding: 10px; background-color: transparent; } .response.error[data-v-602a81a0] { background-color: rgba(255, 0, 0, 0.3); margin: 0px 20px; margin-bottom: 20px; border-radius: 3px; box-sizing: border-box; } ";style.type = 'text/css';if (style.styleSheet) {
                         style.styleSheet.cssText = css;
                     } else {
                         style.appendChild(document.createTextNode(css));
@@ -4060,7 +4060,7 @@
                                         var val = "_value" in o ? o._value : o.value;return val;
                                     });_vm.$set(item, "contentType", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
                                 } } }, [_c('option', { domProps: { "value": item.contentType } }, [_vm._v(_vm._s(item.contentType))])])]) : _vm._e()])]);
-                    }), _vm._v(" "), _vm.params.length === 0 ? _c('tr', [_c('td', { attrs: { "colspan": "2" } }, [_vm._v("No Parameters.")])]) : _vm._e()], 2), _vm._v(" "), _c('div', { directives: [{ name: "show", rawName: "v-show", value: _vm.isExecute, expression: "isExecute" }], staticClass: "execute-wrapper" }, [_c('button', { staticClass: "btn execute", on: { "click": _vm.runApi } }, [_vm._v("Execute")])])]), _vm._v(" "), _vm.lastResponseData ? _c('div', { staticClass: "section-header" }, [_vm._m(2), _vm._v(" "), _c('div', { staticClass: "try-out" }, [_c('div', { directives: [{ name: "show", rawName: "v-show", value: _vm.showCopyResult, expression: "showCopyResult" }], class: { 'copy-result': true, success: _vm.isCopySuccess } }, [_vm._v("Successfully copied")]), _vm._v(" "), _c('button', { staticClass: "btn", on: { "click": _vm.copyToClipboard } }, [_vm._v("Copy")])])]) : _vm._e(), _vm._v(" "), _vm.lastResponseData ? _c('div', [_c('div', { staticClass: "response" }, [_c('pre', { attrs: { "id": "responseData" } }, [_vm._v(_vm._s(JSON.stringify(_vm.lastResponseData, null, 4)))])])]) : _vm._e()]);
+                    }), _vm._v(" "), _vm.params.length === 0 ? _c('tr', [_c('td', { staticClass: "no-items", attrs: { "colspan": "2" } }, [_vm._v("No Parameters.")])]) : _vm._e()], 2), _vm._v(" "), _c('div', { directives: [{ name: "show", rawName: "v-show", value: _vm.isExecute, expression: "isExecute" }], staticClass: "execute-wrapper" }, [_c('button', { staticClass: "btn execute", on: { "click": _vm.runApi } }, [_vm._v("Execute")])])]), _vm._v(" "), _vm.lastResponseData ? _c('div', { staticClass: "section-header" }, [_vm._m(2), _vm._v(" "), _c('div', { staticClass: "try-out" }, [_c('div', { directives: [{ name: "show", rawName: "v-show", value: _vm.showCopyResult, expression: "showCopyResult" }], class: { 'copy-result': true, success: _vm.isCopySuccess } }, [_vm._v("Successfully copied")]), _vm._v(" "), _c('button', { staticClass: "btn", on: { "click": _vm.copyToClipboard } }, [_vm._v("Copy")])])]) : _vm._e(), _vm._v(" "), _vm.lastResponseData ? _c('div', [_c('div', { staticClass: "response" }, [_c('pre', { attrs: { "id": "responseData" } }, [_vm._v(_vm._s(JSON.stringify(_vm.lastResponseData, null, 4)))])])]) : _vm._e(), _vm._v(" "), _vm.lastErrorMessage ? _c('div', [_c('div', { staticClass: "response error" }, [_c('pre', [_vm._v(_vm._s(JSON.stringify(_vm.lastErrorMessage, null, 4)))])])]) : _vm._e()]);
                 }, staticRenderFns: [function () {
                     var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', { staticClass: "tab-header" }, [_c('h1', [_vm._v("Parameters")])]);
                 }, function () {
@@ -4073,6 +4073,7 @@
                     return {
                         execute: false,
                         lastResponseData: null,
+                        lastErrorMessage: null,
                         dataParameters: this.params || [],
                         isCopySuccess: false,
                         showCopyResult: false
@@ -4095,6 +4096,17 @@
                                     switch (_context.prev = _context.next) {
                                         case 0:
                                             call = axios$1.create();
+
+                                            call.interceptors.response.use(function (response) {
+                                                return response;
+                                            }, function (error) {
+
+                                                // Do something with response error
+                                                if (error.response.status === 401) {}
+
+                                                return Promise.reject(error.response);
+                                            });
+
                                             url = [this$1.$parent.spec.host, this$1.getUrl()].join('');
                                             config = {
                                                 url: url,
@@ -4103,20 +4115,28 @@
                                                 params: this$1.getParams(),
                                                 data: this$1.getData()
                                             };
-                                            _context.next = 5;
+                                            _context.prev = 5;
+                                            _context.next = 8;
                                             return call.request(config);
 
-                                        case 5:
+                                        case 8:
                                             response = _context.sent;
 
-                                            this$1.lastResponseData = response.data;
 
-                                        case 7:
+                                            this$1.success(response.data);
+                                            _context.next = 14;
+                                            break;
+
+                                        case 12:
+                                            _context.prev = 12;
+                                            _context.t0 = _context['catch'](5);
+
+                                        case 14:
                                         case 'end':
                                             return _context.stop();
                                     }
                                 }
-                            }, _callee, this);
+                            }, _callee, this, [[5, 12]]);
                         }));
 
                         function runApi() {
@@ -4125,6 +4145,14 @@
 
                         return runApi;
                     }(),
+                    success: function success(data) {
+                        this.lastResponseData = data;
+                        this.lastErrorMessage = null;
+                    },
+                    error: function error(data) {
+                        this.lastResponseData = null;
+                        this.lastErrorMessage = data;
+                    },
                     getData: function getData() {
                         var body = {};
 

@@ -51,7 +51,7 @@
                 </td>
             </tr>
             <tr v-if="params.length === 0">
-                <td colspan="2">No Parameters.</td>
+                <td colspan="2" class="no-items">No Parameters.</td>
             </tr>
             </table>
             <div class="execute-wrapper" v-show="isExecute">
@@ -72,6 +72,11 @@
                 <pre id="responseData">{{JSON.stringify(lastResponseData, null, 4)}}</pre>
             </div>
         </div>
+        <div v-if="lastErrorMessage">
+            <div class="response error">
+                <pre>{{JSON.stringify(lastErrorMessage, null, 4)}}</pre>
+            </div>
+        </div>        
     </div>
 </template>
 
@@ -84,6 +89,7 @@ export default {
         return {
             execute: false,
             lastResponseData: null,
+            lastErrorMessage: null,
             dataParameters: this.params || [],
             isCopySuccess: false,
             showCopyResult: false
@@ -99,6 +105,19 @@ export default {
 
             const call = axios.create()
 
+            var self = this 
+            call.interceptors.response.use((response) => {
+                return response;
+            }, function (error) {
+                
+                // Do something with response error
+                if (error.response.status === 401) {
+                }
+
+
+                return Promise.reject(error.response);
+            });            
+
             const url = [this.$parent.spec.host, this.getUrl()].join('');
 
             const config = {
@@ -109,8 +128,22 @@ export default {
                 data: this.getData()
             }
 
-            let response = await call.request(config)
-            this.lastResponseData = response.data
+            try {
+                let response = await call.request(config)
+
+                this.success(response.data)
+            } catch (e) {
+                // this.error(e.message)
+            }
+
+        },
+        success (data) {
+            this.lastResponseData = data
+            this.lastErrorMessage = null
+        },
+        error (data) {
+            this.lastResponseData = null
+            this.lastErrorMessage = data
         },
         getData () {
             let body = {}
@@ -233,6 +266,10 @@ table {
         border-bottom: 1px solid rgba(59,65,81,.2);
         font-family: sans-serif;
         color: #3b4151;
+    }
+
+    .no-items {
+        font-size: 12px;
     }
 }
 
@@ -402,6 +439,14 @@ table {
     pre {
         padding: 10px;
         background-color: transparent;
+    }
+
+    &.error {
+        background-color: rgba(255, 0, 0, 0.3);
+        margin: 0px 20px;
+        margin-bottom: 20px;
+        border-radius: 3px;
+        box-sizing: border-box;
     }
 }
 
