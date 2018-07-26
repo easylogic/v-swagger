@@ -1,14 +1,14 @@
 <template>
     <div class="api">
         <div class="header" @click="open = !open">
-            <span class="title">{{apiObj.title}}</span>            
-            <span class="host">{{apiObj.host}}</span>            
-            <span class="description">{{apiObj.description}}</span>
+            <span class="title">{{specInfo.title}}</span>            
+            <span class="host">{{specInfo.host}}</span>            
+            <span class="description">{{specInfo.description}}</span>
         </div>
 
         <div class="table" v-show="isOpen">
             <slot></slot>
-            <request v-for="(item, index) in apiObj.request" 
+            <request v-for="(item, index) in specInfo.request" 
             
                 :key="index"
                 :method="item.method"
@@ -29,19 +29,12 @@
 import request from './request.vue'
 
 export default {
-    props: ['host', 'opened', 'title', 'description', 'requset', 'target'],
+    props: [ 'spec' ],
     data () {
 
-        var apiObj = {
-            host: this.host,
-            title: this.title,
-            description: this.description,
-            opened: this.opened,
-            request: this.request || [] 
-        } 
         return {
-            apiObj,
-            open: apiObj.opened || false,
+            specInfo: this.spec,
+            open: this.spec.opened || false,
         }
     },
     computed: {

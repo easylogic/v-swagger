@@ -6,8 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
-    <app></app>
+    <div id="app">
+      <vue-swagger :spec="spec" />
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue"></script>
     <script src="dist/vue-swagger.umd.js"></script>
+    <script type="text/javascript">
+      new Vue({
+        el: '#app',
+        data: {
+          spec: {
+            host: "https://api.bitbox.me",
+            title: "Market API",
+            description: "Market, Coin, Coin Pair, Price, Transactions",
+            opened: true,
+            request: [{
+                method: 'get',    // post, delete or put 
+                description: "Retrieve Coin Information List.",
+                url: "/trade/public/v1/market/coin/list"
+              }
+            ]
+          }
+        }
+      })
+    </script>
   </body>
 </html>

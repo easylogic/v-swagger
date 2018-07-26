@@ -61,7 +61,7 @@ export default {
     data () {
         return {
             open: false,
-            apiObj: this.$parent.apiObj,
+            spec: this.$parent.spec,
             dataHeaders: this.parseHeaders(this.headers),
             dataBody: this.parseBody(this.body),
             dataPath: this.parsePath(this.path),

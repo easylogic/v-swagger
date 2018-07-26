@@ -1,3 +1,7 @@
+var global$1 = (typeof global !== "undefined" ? global :
+            typeof self !== "undefined" ? self :
+            typeof window !== "undefined" ? window : {});
+
 function unwrapExports (x) {
 	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
 }
@@ -1880,7 +1884,7 @@ var _invoke = function (fn, args, that) {
   } return fn.apply(that, args);
 };
 
-var process$1 = _global.process;
+var process = _global.process;
 var setTask = _global.setImmediate;
 var clearTask = _global.clearImmediate;
 var MessageChannel = _global.MessageChannel;
@@ -1918,9 +1922,9 @@ if (!setTask || !clearTask) {
     delete queue[id];
   };
   // Node.js 0.8-
-  if (_cof(process$1) == 'process') {
+  if (_cof(process) == 'process') {
     defer = function (id) {
-      process$1.nextTick(_ctx(run, id, 1));
+      process.nextTick(_ctx(run, id, 1));
     };
   // Sphere (JS game engine) Dispatch API
   } else if (Dispatch && Dispatch.now) {
@@ -1962,16 +1966,16 @@ var _task = {
 
 var macrotask = _task.set;
 var Observer = _global.MutationObserver || _global.WebKitMutationObserver;
-var process$2 = _global.process;
+var process$1 = _global.process;
 var Promise$1 = _global.Promise;
-var isNode = _cof(process$2) == 'process';
+var isNode = _cof(process$1) == 'process';
 
 var _microtask = function () {
   var head, last, notify;
 
   var flush = function () {
     var parent, fn;
-    if (isNode && (parent = process$2.domain)) parent.exit();
+    if (isNode && (parent = process$1.domain)) parent.exit();
     while (head) {
       fn = head.fn;
       head = head.next;
@@ -1989,7 +1993,7 @@ var _microtask = function () {
   // Node.js
   if (isNode) {
     notify = function () {
-      process$2.nextTick(flush);
+      process$1.nextTick(flush);
     };
   // browsers with MutationObserver, except iOS Safari - https://github.com/zloirock/core-js/issues/339
   } else if (Observer && !(_global.navigator && _global.navigator.standalone)) {
@@ -2118,11 +2122,11 @@ var microtask = _microtask();
 
 var PROMISE = 'Promise';
 var TypeError$1 = _global.TypeError;
-var process$3 = _global.process;
-var versions = process$3 && process$3.versions;
+var process$2 = _global.process;
+var versions = process$2 && process$2.versions;
 var v8 = versions && versions.v8 || '';
 var $Promise = _global[PROMISE];
-var isNode$1 = _classof(process$3) == 'process';
+var isNode$1 = _classof(process$2) == 'process';
 var empty = function () { /* empty */ };
 var Internal, newGenericPromiseCapability, OwnPromiseCapability, Wrapper;
 var newPromiseCapability = newGenericPromiseCapability = _newPromiseCapability.f;
@@ -2204,7 +2208,7 @@ var onUnhandled = function (promise) {
     if (unhandled) {
       result = _perform(function () {
         if (isNode$1) {
-          process$3.emit('unhandledRejection', value, promise);
+          process$2.emit('unhandledRejection', value, promise);
         } else if (handler = _global.onunhandledrejection) {
           handler({ promise: promise, reason: value });
         } else if ((console = _global.console) && console.error) {
@@ -2224,7 +2228,7 @@ var onHandleUnhandled = function (promise) {
   task.call(_global, function () {
     var handler;
     if (isNode$1) {
-      process$3.emit('rejectionHandled', promise);
+      process$2.emit('rejectionHandled', promise);
     } else if (handler = _global.onrejectionhandled) {
       handler({ promise: promise, reason: promise._v });
     }
@@ -2296,7 +2300,7 @@ if (!USE_NATIVE$1) {
       var reaction = newPromiseCapability(_speciesConstructor(this, $Promise));
       reaction.ok = typeof onFulfilled == 'function' ? onFulfilled : true;
       reaction.fail = typeof onRejected == 'function' && onRejected;
-      reaction.domain = isNode$1 ? process$3.domain : undefined;
+      reaction.domain = isNode$1 ? process$2.domain : undefined;
       this._c.push(reaction);
       if (this._a) this._a.push(reaction);
       if (this._s) notify(this, false);
@@ -2792,6 +2796,228 @@ var utils = {
   trim: trim
 };
 
+// shim for using process in browser
+// based off https://github.com/defunctzombie/node-process/blob/master/browser.js
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
+var cachedSetTimeout = defaultSetTimout;
+var cachedClearTimeout = defaultClearTimeout;
+if (typeof global$1.setTimeout === 'function') {
+    cachedSetTimeout = setTimeout;
+}
+if (typeof global$1.clearTimeout === 'function') {
+    cachedClearTimeout = clearTimeout;
+}
+
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
+var queue$1 = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue$1 = currentQueue.concat(queue$1);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue$1.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue$1.length;
+    while(len) {
+        currentQueue = queue$1;
+        queue$1 = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue$1.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+function nextTick(fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue$1.push(new Item(fun, args));
+    if (queue$1.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+}
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+var title = 'browser';
+var platform = 'browser';
+var browser = true;
+var env = {};
+var argv = [];
+var version = ''; // empty string to avoid regexp issues
+var versions$1 = {};
+var release = {};
+var config = {};
+
+function noop() {}
+
+var on = noop;
+var addListener = noop;
+var once = noop;
+var off = noop;
+var removeListener = noop;
+var removeAllListeners = noop;
+var emit = noop;
+
+function binding(name) {
+    throw new Error('process.binding is not supported');
+}
+
+function cwd () { return '/' }
+function chdir (dir) {
+    throw new Error('process.chdir is not supported');
+}function umask() { return 0; }
+
+// from https://github.com/kumavis/browser-process-hrtime/blob/master/index.js
+var performance = global$1.performance || {};
+var performanceNow =
+  performance.now        ||
+  performance.mozNow     ||
+  performance.msNow      ||
+  performance.oNow       ||
+  performance.webkitNow  ||
+  function(){ return (new Date()).getTime() };
+
+// generate timestamp or delta
+// see http://nodejs.org/api/process.html#process_process_hrtime
+function hrtime(previousTimestamp){
+  var clocktime = performanceNow.call(performance)*1e-3;
+  var seconds = Math.floor(clocktime);
+  var nanoseconds = Math.floor((clocktime%1)*1e9);
+  if (previousTimestamp) {
+    seconds = seconds - previousTimestamp[0];
+    nanoseconds = nanoseconds - previousTimestamp[1];
+    if (nanoseconds<0) {
+      seconds--;
+      nanoseconds += 1e9;
+    }
+  }
+  return [seconds,nanoseconds]
+}
+
+var startTime = new Date();
+function uptime() {
+  var currentTime = new Date();
+  var dif = currentTime - startTime;
+  return dif / 1000;
+}
+
+var process$3 = {
+  nextTick: nextTick,
+  title: title,
+  browser: browser,
+  env: env,
+  argv: argv,
+  version: version,
+  versions: versions$1,
+  on: on,
+  addListener: addListener,
+  once: once,
+  off: off,
+  removeListener: removeListener,
+  removeAllListeners: removeAllListeners,
+  emit: emit,
+  binding: binding,
+  cwd: cwd,
+  chdir: chdir,
+  umask: umask,
+  hrtime: hrtime,
+  platform: platform,
+  release: release,
+  config: config,
+  uptime: uptime
+};
+
 var normalizeHeaderName = function normalizeHeaderName(headers, normalizedName) {
   utils.forEach(headers, function processHeader(value, name) {
     if (name !== normalizedName && name.toUpperCase() === normalizedName.toUpperCase()) {
@@ -3124,10 +3350,10 @@ var cookies = (
 
 var btoa$1 = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || btoa_1;
 
-var xhr = function xhrAdapter(config) {
+var xhr = function xhrAdapter(config$$1) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
-    var requestData = config.data;
-    var requestHeaders = config.headers;
+    var requestData = config$$1.data;
+    var requestHeaders = config$$1.headers;
 
     if (utils.isFormData(requestData)) {
       delete requestHeaders['Content-Type']; // Let the browser set it
@@ -3140,10 +3366,10 @@ var xhr = function xhrAdapter(config) {
     // For IE 8/9 CORS support
     // Only supports POST and GET calls and doesn't returns the response headers.
     // DON'T do this for testing b/c XMLHttpRequest is mocked, not XDomainRequest.
-    if (process.env.NODE_ENV !== 'test' &&
+    if (process$3.env.NODE_ENV !== 'test' &&
         typeof window !== 'undefined' &&
         window.XDomainRequest && !('withCredentials' in request) &&
-        !isURLSameOrigin(config.url)) {
+        !isURLSameOrigin(config$$1.url)) {
       request = new window.XDomainRequest();
       loadEvent = 'onload';
       xDomain = true;
@@ -3152,16 +3378,16 @@ var xhr = function xhrAdapter(config) {
     }
 
     // HTTP basic authentication
-    if (config.auth) {
-      var username = config.auth.username || '';
-      var password = config.auth.password || '';
+    if (config$$1.auth) {
+      var username = config$$1.auth.username || '';
+      var password = config$$1.auth.password || '';
       requestHeaders.Authorization = 'Basic ' + btoa$1(username + ':' + password);
     }
 
-    request.open(config.method.toUpperCase(), buildURL(config.url, config.params, config.paramsSerializer), true);
+    request.open(config$$1.method.toUpperCase(), buildURL(config$$1.url, config$$1.params, config$$1.paramsSerializer), true);
 
     // Set the request timeout in MS
-    request.timeout = config.timeout;
+    request.timeout = config$$1.timeout;
 
     // Listen for ready state
     request[loadEvent] = function handleLoad() {
@@ -3179,14 +3405,14 @@ var xhr = function xhrAdapter(config) {
 
       // Prepare the response
       var responseHeaders = 'getAllResponseHeaders' in request ? parseHeaders(request.getAllResponseHeaders()) : null;
-      var responseData = !config.responseType || config.responseType === 'text' ? request.responseText : request.response;
+      var responseData = !config$$1.responseType || config$$1.responseType === 'text' ? request.responseText : request.response;
       var response = {
         data: responseData,
         // IE sends 1223 instead of 204 (https://github.com/axios/axios/issues/201)
         status: request.status === 1223 ? 204 : request.status,
         statusText: request.status === 1223 ? 'No Content' : request.statusText,
         headers: responseHeaders,
-        config: config,
+        config: config$$1,
         request: request
       };
 
@@ -3200,7 +3426,7 @@ var xhr = function xhrAdapter(config) {
     request.onerror = function handleError() {
       // Real errors are hidden from us by the browser
       // onerror should only fire if it's a network error
-      reject(createError('Network Error', config, null, request));
+      reject(createError('Network Error', config$$1, null, request));
 
       // Clean up request
       request = null;
@@ -3208,7 +3434,7 @@ var xhr = function xhrAdapter(config) {
 
     // Handle timeout
     request.ontimeout = function handleTimeout() {
-      reject(createError('timeout of ' + config.timeout + 'ms exceeded', config, 'ECONNABORTED',
+      reject(createError('timeout of ' + config$$1.timeout + 'ms exceeded', config$$1, 'ECONNABORTED',
         request));
 
       // Clean up request
@@ -3222,12 +3448,12 @@ var xhr = function xhrAdapter(config) {
       var cookies$$1 = cookies;
 
       // Add xsrf header
-      var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
-          cookies$$1.read(config.xsrfCookieName) :
+      var xsrfValue = (config$$1.withCredentials || isURLSameOrigin(config$$1.url)) && config$$1.xsrfCookieName ?
+          cookies$$1.read(config$$1.xsrfCookieName) :
           undefined;
 
       if (xsrfValue) {
-        requestHeaders[config.xsrfHeaderName] = xsrfValue;
+        requestHeaders[config$$1.xsrfHeaderName] = xsrfValue;
       }
     }
 
@@ -3245,36 +3471,36 @@ var xhr = function xhrAdapter(config) {
     }
 
     // Add withCredentials to request if needed
-    if (config.withCredentials) {
+    if (config$$1.withCredentials) {
       request.withCredentials = true;
     }
 
     // Add responseType to request if needed
-    if (config.responseType) {
+    if (config$$1.responseType) {
       try {
-        request.responseType = config.responseType;
+        request.responseType = config$$1.responseType;
       } catch (e) {
         // Expected DOMException thrown by browsers not compatible XMLHttpRequest Level 2.
         // But, this can be suppressed for 'json' type as it can be parsed by default 'transformResponse' function.
-        if (config.responseType !== 'json') {
+        if (config$$1.responseType !== 'json') {
           throw e;
         }
       }
     }
 
     // Handle progress if needed
-    if (typeof config.onDownloadProgress === 'function') {
-      request.addEventListener('progress', config.onDownloadProgress);
+    if (typeof config$$1.onDownloadProgress === 'function') {
+      request.addEventListener('progress', config$$1.onDownloadProgress);
     }
 
     // Not all browsers support upload events
-    if (typeof config.onUploadProgress === 'function' && request.upload) {
-      request.upload.addEventListener('progress', config.onUploadProgress);
+    if (typeof config$$1.onUploadProgress === 'function' && request.upload) {
+      request.upload.addEventListener('progress', config$$1.onUploadProgress);
     }
 
-    if (config.cancelToken) {
+    if (config$$1.cancelToken) {
       // Handle cancellation
-      config.cancelToken.promise.then(function onCanceled(cancel) {
+      config$$1.cancelToken.promise.then(function onCanceled(cancel) {
         if (!request) {
           return;
         }
@@ -3310,7 +3536,7 @@ function getDefaultAdapter() {
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
     adapter = xhr;
-  } else if (typeof process !== 'undefined') {
+  } else if (typeof process$3 !== 'undefined') {
     // For node use HTTP adapter
     adapter = xhr;
   }
@@ -3863,7 +4089,7 @@ var ParamsTable = { render: function render() {
                         switch (_context.prev = _context.next) {
                             case 0:
                                 call = axios$1.create();
-                                url = [this$1.$parent.apiObj.host, this$1.getUrl()].join('');
+                                url = [this$1.$parent.spec.host, this$1.getUrl()].join('');
                                 config = {
                                     url: url,
                                     method: this$1.$parent.method,
@@ -4094,7 +4320,7 @@ var request = { render: function render() {
     data: function data() {
         return {
             open: false,
-            apiObj: this.$parent.apiObj,
+            spec: this.$parent.spec,
             dataHeaders: this.parseHeaders(this.headers),
             dataBody: this.parseBody(this.body),
             dataPath: this.parsePath(this.path),
@@ -4280,23 +4506,16 @@ var request = { render: function render() {
 var component = { render: function render() {
         var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', { staticClass: "api" }, [_c('div', { staticClass: "header", on: { "click": function click($event) {
                     _vm.open = !_vm.open;
-                } } }, [_c('span', { staticClass: "title" }, [_vm._v(_vm._s(_vm.apiObj.title))]), _vm._v(" "), _c('span', { staticClass: "host" }, [_vm._v(_vm._s(_vm.apiObj.host))]), _vm._v(" "), _c('span', { staticClass: "description" }, [_vm._v(_vm._s(_vm.apiObj.description))])]), _vm._v(" "), _c('div', { directives: [{ name: "show", rawName: "v-show", value: _vm.isOpen, expression: "isOpen" }], staticClass: "table" }, [_vm._t("default"), _vm._v(" "), _vm._l(_vm.apiObj.request, function (item, index) {
+                } } }, [_c('span', { staticClass: "title" }, [_vm._v(_vm._s(_vm.specInfo.title))]), _vm._v(" "), _c('span', { staticClass: "host" }, [_vm._v(_vm._s(_vm.specInfo.host))]), _vm._v(" "), _c('span', { staticClass: "description" }, [_vm._v(_vm._s(_vm.specInfo.description))])]), _vm._v(" "), _c('div', { directives: [{ name: "show", rawName: "v-show", value: _vm.isOpen, expression: "isOpen" }], staticClass: "table" }, [_vm._t("default"), _vm._v(" "), _vm._l(_vm.specInfo.request, function (item, index) {
             return _c('request', { key: index, attrs: { "method": item.method, "url": item.url, "description": item.description, "headers": item.headers, "path": item.path, "params": item.params, "body": item.body } });
         })], 2)]);
     }, staticRenderFns: [], _scopeId: 'data-v-3ab0010c',
-    props: ['host', 'opened', 'title', 'description', 'requset', 'target'],
+    props: ['spec'],
     data: function data() {
 
-        var apiObj = {
-            host: this.host,
-            title: this.title,
-            description: this.description,
-            opened: this.opened,
-            request: this.request || []
-        };
         return {
-            apiObj: apiObj,
-            open: apiObj.opened || false
+            specInfo: this.spec,
+            open: this.spec.opened || false
         };
     },
 
@@ -4325,8 +4544,8 @@ var plugin = {
 var GlobalVue = null;
 if (typeof window !== 'undefined') {
   GlobalVue = window.Vue;
-} else if (typeof global !== 'undefined') {
-  GlobalVue = global.Vue;
+} else if (typeof global$1 !== 'undefined') {
+  GlobalVue = global$1.Vue;
 }
 if (GlobalVue) {
   GlobalVue.use(plugin);

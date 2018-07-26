@@ -99,9 +99,7 @@ export default {
 
             const call = axios.create()
 
-
-
-            const url = [this.$parent.apiObj.host, this.getUrl()].join('');
+            const url = [this.$parent.spec.host, this.getUrl()].join('');
 
             const config = {
                 url,
