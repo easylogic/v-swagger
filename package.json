@@ -1,6 +1,6 @@
 {
   "name": "v-swagger",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "API document component like swagger style",
   "main": "dist/v-swagger.umd.js",
   "module": "dist/v-swagger.esm.js",
