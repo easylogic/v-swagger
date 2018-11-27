@@ -24,7 +24,7 @@ export default {
         params: [{
           key: "name",
           type: "string",
-          description: "이름입니다.",
+          description: "This is my name.",
           required: true
         }],
         body: {

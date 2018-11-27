@@ -1,15 +1,15 @@
-import component from './v-swagger.vue'
+import VSwagger from './v-swagger.vue'
 
 export function install (Vue) {
     if (install.installed) return; 
 
     install.installed = true;
 
-    Vue.component('v-swagger', component)
+    Vue.component('v-swagger', VSwagger)
 }
 
 const plugin = {
-    install,
+    install
 }
 
 let GlobalVue = null
@@ -22,4 +22,4 @@ if (GlobalVue) {
 	GlobalVue.use(plugin);
 }
 
-export default component;
+export default { VSwagger, install};

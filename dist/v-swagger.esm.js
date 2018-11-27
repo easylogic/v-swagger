@@ -4531,7 +4531,7 @@ var request = { render: function render() {
     }
 })();
 
-var component = { render: function render() {
+var VSwagger = { render: function render() {
         var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', { staticClass: "api" }, [_c('div', { staticClass: "header", on: { "click": function click($event) {
                     _vm.open = !_vm.open;
                 } } }, [_c('span', { staticClass: "title" }, [_vm._v(_vm._s(_vm.specInfo.title))]), _vm._v(" "), _c('span', { staticClass: "host" }, [_vm._v(_vm._s(_vm.specInfo.host))]), _vm._v(" "), _c('span', { staticClass: "description" }, [_vm._v(_vm._s(_vm.specInfo.description))])]), _vm._v(" "), _c('div', { directives: [{ name: "show", rawName: "v-show", value: _vm.isOpen, expression: "isOpen" }], staticClass: "table" }, [_vm._t("default"), _vm._v(" "), _vm._l(_vm.specInfo.request, function (item, index) {
@@ -4562,7 +4562,7 @@ function install(Vue) {
 
   install.installed = true;
 
-  Vue.component('v-swagger', component);
+  Vue.component('v-swagger', VSwagger);
 }
 
 var plugin = {
@@ -4579,6 +4579,8 @@ if (GlobalVue) {
   GlobalVue.use(plugin);
 }
 
-export default component;
+var wrapper = { VSwagger: VSwagger, install: install };
+
+export default wrapper;
 export { install };
 //# sourceMappingURL=v-swagger.esm.js.map
